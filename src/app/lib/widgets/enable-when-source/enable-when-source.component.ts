@@ -9,6 +9,8 @@ import {ITreeNode} from '@bugsplat/angular-tree-component/lib/defs/api';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {LfbControlWidgetComponent} from '../lfb-control-widget/lfb-control-widget.component';
+import {Util} from "../../util";
+import {TreeService} from "../../../services/tree.service";
 
 @Component({
   selector: 'lfb-choice',
@@ -78,7 +80,7 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
    *
    * @param formService - Service to help with collection of sources
    */
-  constructor(private formService: FormService) {
+  constructor(private formService: FormService, private treeService: TreeService) {
     super();
   }
 
@@ -87,6 +89,15 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
    * Initialize the component
    */
   ngOnInit(): void {
+    this.init();
+    this.treeService.nodeDrop.subscribe(() => {
+      console.log('node Drop');
+      this.init();
+    })
+
+  }
+
+  private init() {
     this.sources = this.formService.getSourcesExcludingFocusedTree();
     const value = this.formProperty.value; // Source is already assigned for this item.
     if (this.sources && this.sources.length > 0 && value) {
@@ -109,7 +120,6 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
     this.formProperty.searchProperty('__$answerType').setValue($event.item.data.type, false);
   }
 
-
   /**
    * Format the input after selection
    * @param item - TreeNode object of the item.
@@ -117,7 +127,7 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
   inputFormatter(item: ITreeNode): string {
     let ret: string;
     if (item && item.data) {
-      ret = item.data.text;
+      ret = Util.getIndexPath(item).join('.') + ' ' + item.data.text;
     }
     return ret;
   }
@@ -134,9 +144,10 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
       for (let i = 1; i < item.level; i++) {
         indent = indent + '  ';
       }
-      ret = indent + item.data.text;
+      ret = indent + Util.getIndexPath(item).join('.') + ' ' + item.data.text;
     }
     return ret;
   }
+
 
 }

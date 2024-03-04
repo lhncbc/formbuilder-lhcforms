@@ -771,4 +771,9 @@ export class ItemComponent implements AfterViewInit, OnChanges, OnDestroy {
       sub.unsubscribe();
     });
   }
+
+  onDrop(node: any, event){
+    node.onDrop(event);
+    this.treeService.nodeDrop.next(true);
+  }
 }
