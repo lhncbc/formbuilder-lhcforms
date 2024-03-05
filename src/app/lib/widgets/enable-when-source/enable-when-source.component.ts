@@ -91,7 +91,6 @@ export class EnableWhenSourceComponent extends LfbControlWidgetComponent impleme
   ngOnInit(): void {
     this.init();
     this.treeService.nodeMove.subscribe(() => {
-      console.log('node Drop');
       this.init();
     })
 
