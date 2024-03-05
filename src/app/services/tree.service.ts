@@ -10,7 +10,7 @@ export class TreeService {
 
   _nodeFocus = new Subject<any>();
 
-  _nodeDrop = new Subject<any>();
+  _nodeMove = new Subject<any>();
 
   constructor() {
   }
@@ -19,7 +19,7 @@ export class TreeService {
     return this._nodeFocus;
   }
 
-  get nodeDrop(): Subject<any> {
-    return this._nodeDrop;
+  get nodeMove(): Subject<any> {
+    return this._nodeMove;
   }
 }

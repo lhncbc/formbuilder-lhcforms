@@ -335,6 +335,10 @@ export class ItemComponent implements AfterViewInit, OnChanges, OnDestroy {
         this.treeNodeFocusAnnounce(event.node);
         break;
 
+      case 'moveNode':
+        this.treeService.nodeMove.next(true);
+        break;
+
       default:
         break;
     }
@@ -770,10 +774,5 @@ export class ItemComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
-  }
-
-  onDrop(node: any, event){
-    node.onDrop(event);
-    this.treeService.nodeDrop.next(true);
   }
 }
