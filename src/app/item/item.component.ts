@@ -335,6 +335,10 @@ export class ItemComponent implements AfterViewInit, OnChanges, OnDestroy {
         this.treeNodeFocusAnnounce(event.node);
         break;
 
+      case 'moveNode':
+        this.treeService.nodeMove.next(true);
+        break;
+
       default:
         break;
     }
