@@ -174,11 +174,6 @@
       >Move this item ...</button>
       <div class="dropdown-divider" role="separator"></div>
       <button ngbDropdownItem role="menuitem"
-              (keyup.enter)="onCopyDlg($event, node); myDrop.close()"
-              (click)="onCopyDlg($event, node)"
-      >Copy this item ...</button>
-      <div class="dropdown-divider" role="separator"></div>
-      <button ngbDropdownItem role="menuitem"
               (keyup.enter)="confirmItemDelete();myDrop.close()"
               (click)="confirmItemDelete()"
       >Remove this item</button>
